@@ -77,7 +77,7 @@ const Login = () => {
           textAlign: "center",
         }}
       >
-        <strong>Admin:</strong> ziara961libanon@gmail.com / ziaralebanon
+        <strong>Admin:</strong> ziaralebanon@gmail.com / ziaralebanon123
       </div>
     </div>
   );

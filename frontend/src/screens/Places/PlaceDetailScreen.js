@@ -13,7 +13,8 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { launchImageLibrary } from 'react-native-image-picker';
-import Config from 'react-native-config';const API_URL = Config.API_URL;
+import Config from 'react-native-config';
+const API_URL = Config.API_URL;
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,13 +36,11 @@ export default function PlaceDetailScreen() {
   const [showTooltip, setShowTooltip] = useState(true);
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const [selectedImageUri, setSelectedImageUri] = useState(null);
-  // const [places, setPlaces] = useState([]);
   const [suggestedPlaces, setSuggestedPlaces] = useState([]);
 
   const route = useRoute();
   const { id, type } = route.params;
   const navigation = useNavigation();
-  // const data = useSelector(state => state.places[type] || []);
   const user = useSelector(state => state.user.user);
   const allPlaces = useSelector(state => state.places.all);
   const dispatch = useDispatch();
@@ -50,15 +49,6 @@ export default function PlaceDetailScreen() {
 
   const starArray = [1, 2, 3, 4, 5];
   const [isGuest, setIsGuest] = useState(false);
-
-  // const actionTypeMap = {
-  //   restaurant: 'SET_RESTAURANTS',
-  //   shop: 'SET_SHOPS',
-  //   hotel: 'SET_HOTELS',
-  //   activity: 'SET_ACTIVITY_PLACES',
-  //   religious: 'SET_RELIGIOUS_PALCES',
-  //   touristic: 'SET_TOURISTIC_PLACES',
-  // };
 
   const openImageModal = uri => {
     setSelectedImageUri(uri);
@@ -72,10 +62,9 @@ export default function PlaceDetailScreen() {
   };
 
   const fetchSuggestedPlace = () => {
-    console.log(allPlaces);
     if (!place || !place.city) return;
     const city = place.city;
-    const type = place.type;
+    // const type = place.type;
     const suggestions = allPlaces.filter(
       p => p.city === city && String(p._id) !== String(id),
     );
@@ -182,7 +171,6 @@ export default function PlaceDetailScreen() {
         setSelectedStar(0);
         setReviewText('');
         setImage(null);
-        // navigation.navigate('Home', { refresh: true });
       } else {
         Toast.show({
           type: 'error',
@@ -235,12 +223,9 @@ export default function PlaceDetailScreen() {
     const token = await AsyncStorage.getItem('token');
 
     try {
-      const res = await axios.get(
-        `${API_URL}/api/review/place/${placeId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      const res = await axios.get(`${API_URL}/api/review/place/${placeId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (res.data.success) {
         setReviews(res.data.reviews);
       }
@@ -250,7 +235,6 @@ export default function PlaceDetailScreen() {
   };
 
   const [visibleReviews, setVisibleReviews] = useState(3); // Start by showing 3 reviews
-  // const [showModal, setShowModal] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [reviewModalVisible, setReviewModalVisible] = useState(false);
 
@@ -409,7 +393,9 @@ export default function PlaceDetailScreen() {
         <Text style={styles.sectionTitle}>{i18n.t('Description')}</Text>
         <Text style={styles.descriptionText}>{place?.description}</Text>
         {place?.phone ? (
-          <Text style={styles.phoneText}>{i18n.t('callus')} : {place?.phone}</Text>
+          <Text style={styles.phoneText}>
+            {i18n.t('callus')} : {place?.phone}
+          </Text>
         ) : (
           ''
         )}
@@ -453,7 +439,7 @@ export default function PlaceDetailScreen() {
               <Text
                 style={{ color: '#555', fontStyle: 'italic', marginLeft: 10 }}
               >
-               {i18n.t('noPlacesFoundSameCity')}
+                {i18n.t('noPlacesFoundSameCity')}
               </Text>
             )}
           </View>
@@ -501,7 +487,7 @@ export default function PlaceDetailScreen() {
               name="chevron-right"
               size={20}
               color="black"
-              style={{ marginTop: 50,marginBottom:30 }}
+              style={{ marginTop: 50, marginBottom: 30 }}
             />
           </TouchableOpacity>
         </View>
@@ -756,7 +742,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 10,
-   
   },
   actionText: {
     fontSize: 16,
