@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux"; 
-import { setUser } from "../../redux/userActions";  
-import { useTranslation } from "react-i18next";  
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userActions";
+import { useTranslation } from "react-i18next";
 import "./Signup.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Signup() {
   const { t } = useTranslation(); // ✅ الترجمة
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userData);
 
   // ✅ Validation schema مع الترجمة
@@ -38,7 +38,7 @@ export default function Signup() {
     if (token && user) {
       navigate("/profile", { replace: true });
     }
-  }, [navigate, user]);   
+  }, [navigate, user]);
 
   const businessList = [
     { id: "shop", label: t("signup.businessOptions.shop") },
@@ -47,41 +47,42 @@ export default function Signup() {
     { id: "activity", label: t("signup.businessOptions.activity") },
   ];
 
-const handleSignup = async (values, { setSubmitting, setFieldError }) => {
-  try {
-    const { confirm, ...payload } = values;
-    const response = await axios.post(`${API_URL}
-/api/client/signup`, {
-      name: payload.businessName,
-      type: payload.business,
-      email: payload.email,
-      password: payload.password,
-    });
+  const handleSignup = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      const { confirm, ...payload } = values;
+      const response = await axios.post(`${API_URL}/api/client/signup`, {
+        name: payload.businessName,
+        type: payload.business,
+        email: payload.email,
+        password: payload.password,
+      });
+      localStorage.setItem("token", response.data.token);
+      dispatch(setUser(response.data.user));
+      navigate("/additional-info", { replace: true });
+    } catch (error) {
+      const msg = error.response?.data?.message || "Signup failed";
 
-    localStorage.setItem("token", response.data.token);
-    dispatch(setUser(response.data.user));
-    navigate("/additional-info", { replace: true });
-  } catch (error) {
-    const msg = error.response?.data?.message || "Signup failed";
+      // ✅ إذا الخطأ متعلق بالإيميل (invalid or exists) → بيظهر تحت خانة الإيميل
+      if (
+        msg.toLowerCase().includes("email") ||
+        msg.toLowerCase().includes("client")
+      ) {
+        setFieldError(
+          "email",
+          msg.includes("exists")
+            ? t("signup.errors.exists")
+            : t("signup.errors.invalidEmail"),
+        );
+      } else {
+        // باقي الأخطاء العامة
+        setFieldError("businessName", t("signup.errors.general"));
+      }
 
-    // ✅ إذا الخطأ متعلق بالإيميل (invalid or exists) → بيظهر تحت خانة الإيميل
-    if (msg.toLowerCase().includes("email") || msg.toLowerCase().includes("client")) {
-      setFieldError("email", 
-        msg.includes("exists") 
-          ? t("signup.errors.exists") 
-          : t("signup.errors.invalidEmail")
-      );
-    } else {
-      // باقي الأخطاء العامة
-      setFieldError("businessName", t("signup.errors.general"));
+      console.error("Signup error: hello", msg);
+    } finally {
+      setSubmitting(false);
     }
-
-    console.error("Signup error:", msg);
-  } finally {
-    setSubmitting(false);
-  }
-};
-
+  };
 
   return (
     <div className="signup-page">
@@ -109,7 +110,11 @@ const handleSignup = async (values, { setSubmitting, setFieldError }) => {
 
               <label>{t("signup.businessName")}</label>
               <Field name="businessName" />
-              <ErrorMessage name="businessName" component="p" className="error" />
+              <ErrorMessage
+                name="businessName"
+                component="p"
+                className="error"
+              />
 
               <label>{t("signup.email")}</label>
               <Field name="email" type="email" />
@@ -152,7 +157,9 @@ const handleSignup = async (values, { setSubmitting, setFieldError }) => {
 
               <p className="signup-login-link">
                 {t("signup.already")}{" "}
-                <span onClick={() => navigate("/login")}>{t("signup.login")}</span>
+                <span onClick={() => navigate("/login")}>
+                  {t("signup.login")}
+                </span>
               </p>
             </Form>
           )}

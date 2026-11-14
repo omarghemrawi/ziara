@@ -4,22 +4,22 @@ import { useNavigate } from "react-router-dom"; // If using react-router
 
 const Dashboard = () => {
   let navigate = useNavigate();
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/", { replace: true });
-  }
+  };
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-  <h1>Admin Dashboard</h1>
-  <p>
-    Welcome to your admin panel. Manage places and view client places.
-  </p>
-  <button className="logout-btn" onClick={handleLogout}>
-    Logout
-  </button>
-</header>
+        <h1>Admin Dashboard</h1>
+        <p>
+          Welcome to your admin panel. Manage places and view client places.
+        </p>
+        <button className="logout-btn click" onClick={handleLogout}>
+          Logout
+        </button>
+      </header>
 
       <section className="dashboard-content">
         <div
@@ -38,7 +38,7 @@ const Dashboard = () => {
           <h2>Static Places</h2>
           <p>Manage static places in the system.</p>
         </div>
-         <div
+        <div
           className="dashboard-card"
           onClick={() => navigate("/report")}
           style={{ cursor: "pointer" }}

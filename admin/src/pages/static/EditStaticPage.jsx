@@ -4,12 +4,12 @@ import { uploadImageToCloudinary } from "../../utils/cloudinaryUpload";
 import { toast } from "react-toastify";
 import "./EditStaticPage.css";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL1 = import.meta.env.VITE_API_URL;
 
 const EditStaticPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const API_URL = `${API_URL}/api/static`;
+  const API_URL = `${API_URL1}/api/static`;
   const token = localStorage.getItem("adminToken")
 
   const [form, setForm] = useState({

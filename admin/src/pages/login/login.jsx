@@ -4,36 +4,32 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 
-
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-
-
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const { data } = await axios.post(`${API_URL}/api/admin/login`, {
-      email,
-      password,
-    });
+    try {
+      const { data } = await axios.post(`${API_URL}/api/admin/login`, {
+        email,
+        password,
+      });
 
-    // Save the token in localStorage
-    localStorage.setItem("adminToken", data.token);
-    navigate("/dashboard" , {replace:true});
-  } catch (err) {
-    if (err.response && err.response.data && err.response.data.message) {
-      setError(err.response.data.message); 
-    } else {
-      setError("Server error");
+      // Save the token in localStorage
+      localStorage.setItem("adminToken", data.token);
+      navigate("/dashboard", { replace: true });
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Server error");
+      }
     }
-  }
-};
+  };
 
   return (
     <div className="login-container">

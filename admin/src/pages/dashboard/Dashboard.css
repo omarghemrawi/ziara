@@ -42,19 +42,19 @@ body {
   margin-bottom: 0;
 }
 .logout-btn {
-  background-color: #7961ff; /* red */
+  background-color: #7961ff; 
   color: #fff;
+  font-weight: 600;
   border: none;
   padding: 8px 16px;
   margin-top: 16px;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
   transition: background 0.2s ease;
 }
 
 .logout-btn:hover {
-  background-color: #93bcff;
+  background-color: #0e2244;
 }
 .dashboard-content {
   display: flex;
@@ -62,7 +62,6 @@ body {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .dashboard-card {
   flex: 1 1 220px;
   min-width: 220px;
