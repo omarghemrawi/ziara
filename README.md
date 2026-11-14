@@ -1,8 +1,13 @@
-# Ziara 🇱🇧
-### Discover Lebanon, One Place at a Time!
+# Ziara
+## About Ziara
 
 Ziara is a collaborative full-stack project developed during the Tashgheel training program.
 
-It is a platform designed to help people discover and explore touristic, religious, and local places across Lebanon.
+The platform aims to simplify the discovery of touristic, religious, and local places across Lebanon by bringing information about different destinations into one place.
 
-Ziara connects visitors with local businesses through three integrated applications: a mobile application, a business client portal, and an admin dashboard.
+Ziara also provides local businesses with an opportunity to establish their online presence, showcase their services, and connect with potential customers.
+
+The platform consists of three integrated applications:
+- A mobile application for visitors.
+- A client portal for business owners.
+- An admin dashboard for platform management.
