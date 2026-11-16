@@ -316,11 +316,6 @@ The Flask application runs on port `8000` as configured in `app.py`.
 
 ## Screenshots
 
-*Add screenshots of the Mobile Application, Business Client Portal, and
-Admin Dashboard here.*
-
-Suggested layout:
-
 ``` text
 docs/
 └── screenshots/
