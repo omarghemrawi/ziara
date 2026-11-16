@@ -335,8 +335,4 @@ Developed collaboratively during the Tashgheel training program.
 
 **Mentor:** Dr. Nader Bakir
 
-------------------------------------------------------------------------
 
-**Note:** Ziara is currently configured for local development.
-Deployment instructions and live demo links can be added when deployment
-is available.
